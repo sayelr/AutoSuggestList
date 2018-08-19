@@ -45,12 +45,15 @@
       $('#btnDestroy').click(btnDestroy);
       $('.codeBtn, .sectionBtn').click(showSection);
 
+      $('#txtSearchCond, #txtFormatter').on('keydown', tabs);
+      
       setInterval(function () {
         $('#txtSearchCond, #txtFormatter').css('background-color', '#f8f8f8');
         setTimeout(function() {
           $('#txtSearchCond, #txtFormatter').css('background-color', '');
         }, 2000);
       }, 6000);
+
     }
 
     init();
@@ -144,6 +147,24 @@
       } else {
         $sec.fadeIn(250);
         $($el.val('Hide ' + title));
+      }
+    }
+
+    function tabs(e) {
+      var keyCode = e.keyCode || e.which;
+
+      if (keyCode == 9) {
+        e.preventDefault();
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+        
+        $(this).val($(this).val().substring(0, start)
+                    + "  "
+                    + $(this).val().substring(end));
+
+        // put caret at right position again
+        this.selectionStart =
+        this.selectionEnd = start + 2;
       }
     }
   });
