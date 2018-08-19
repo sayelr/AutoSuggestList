@@ -1,0 +1,37 @@
+{
+  "name": "sayel-auto-suggest-list",
+  "version": "1.0.0",
+  "description": "jQuery plugin",
+  "main": "auto-suggest-list-v1.0.0.min.js",
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "search",
+    "textbox",    
+    "json",    
+    "input",
+    "autocomplete",
+    "autosuggest",
+    "listbox"
+],
+  "dependencies": {
+    "jquery": ">=1.12.4",
+    "jquery-ui": ">=1.11.4"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sayelr/AutoSuggestList.git"
+  },
+  "author": "Sayel Rammaha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sayelr/AutoSuggestList/issues"
+  },
+  "homepage": "https://sayelr.github.io/AutoSuggestList/index.html"
+}
