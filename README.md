@@ -1,5 +1,5 @@
 # autoSuggestList
-jQuery plugin to attach an auto suggest dropdown list to a text box
+jQuery plugin to attach an auto suggest dropdown list to a text box.
 Requires jQuery 1.12.4 and jQuery UI 1.10 (or any newer versions).
 
 Every setting can be changed at any time without reinitialization.
