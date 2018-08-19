@@ -1,0 +1,180 @@
+/* this is a mess and I don't want to bother fixing it */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: lightgray;
+}
+h1, h3 {
+  text-align: center;
+}
+h4 {
+  margin-bottom: 5px;
+}
+#txt {
+  width: 180px;
+  font-size: 16px;
+  height: 21px;
+  padding-left: 5px;
+  box-shadow: 0px 0px 15px rgb(163, 206, 255);
+  outline: none;
+}
+#container {
+  text-align: center;  
+  background-color: white;
+  width: 1000px;
+  box-shadow: 0px 0px 20px rgb(59, 151, 255);
+  margin: 20px auto 20px auto;
+  padding-top: 20px;
+}
+.wrapper {  
+  height: 50px;
+  width: 1000px;
+  margin: auto;
+  display: inline-block;
+}
+#output {
+  height: 20px;
+  margin: auto;
+  width: 600px;
+  display: inline-block;
+  color: rgb(29, 119, 255);
+  text-align: left;
+  margin-bottom: 10px;
+}
+#wrap {
+  width: 550px;
+  display: inline-block;  
+}
+#out {
+  width: 550px; 
+  text-align: center;
+  display: inline-block;  
+}
+#doc {
+  width: 900px;
+  margin: auto;
+  padding: 10px;
+  margin-top: 10px;
+}
+pre {
+  /* border: 1px solid black; */
+  font-size: 14px;  
+  margin-top: 0;
+}
+code {
+  font-size: 14px;
+}
+.hidden {
+  display: none;
+}
+.block {
+  margin-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+  text-align: left; 
+}
+.codeBtn {
+  width: 250px;
+  /* background-color: rgb(176, 246, 255); */
+  background-color:  rgb(119, 180, 250);
+  height: 25px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+.section {
+  width: 100%;
+}
+.sectionBtn {
+  width: 450px;
+  background-color: rgb(18, 58, 77);
+  height: 35px;
+  font-size: 25px;
+  text-align: center;
+  border: 2px outset lightgray;
+  color: white;
+  cursor: pointer;
+}
+span {  
+  font-weight: bold;
+}
+.lbl {
+  color: black;
+}
+#btnApply {
+  color: white;
+  background-color: rgb(59, 151, 255);;
+  border: 2px solid rgb(18, 58, 77);
+  width: 106px;
+  height: 27px;
+  cursor: pointer;
+  vertical-align: top;
+  margin-right: 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
+#btnDestroy {
+  border: 2px solid rgb(18, 58, 77);
+  color: white;
+  background-color: gray;
+  width: 106px;
+  height: 27px;
+  cursor: pointer;
+  margin-left: 20px;
+  vertical-align: top;
+  font-weight: bold;
+  font-size: 15px;
+}
+#controls {
+  padding-top: 10px;
+}
+.separator {
+  width: 70px;
+}
+table {
+  width: 100%;  
+  border: 1px dashed;
+  padding: 5px 0;
+}
+td:first-child {
+  text-align: left; 
+}
+td:nth-child(3) {
+  text-align: right;  
+}
+.dash {
+  margin-top: 20px;
+}
+.test {
+  height: 500px;
+}
+ul {
+  list-style-type: none;
+}
+li {
+  color: rgb(104, 104, 255);
+}
+label {
+  width: 140px;
+  display: inline-block;
+  text-align: right;
+}
+#txtSearchCond, #txtFormatter {
+  width: 856px; 
+  padding-left: 40px;
+  margin-top: 0px;
+  border: none;
+  resize: none;
+  background-color: #f5f2f0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-top: 1px dotted rgb(135, 174, 187);
+  border-bottom: 1px dotted rgb(135, 174, 187);
+  outline: none;
+  transition: background-color 2s ease-in;
+  -webkit-transition: background-color 2s ease-in;
+  -moz-transition: background-color 2s ease-in;
+  -o-transition: background-color 2s ease-in;
+  transition: background-color 2s ease-in;
+}
+#w {
+  border: 1px solid black;
+}

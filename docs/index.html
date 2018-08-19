@@ -1,0 +1,429 @@
+<!-- Sayel Rammaha 8/18/18 -->
+<!-- this is a mess and I don't want to bother fixing it -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">    
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous">
+    </script>
+    <script
+      src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+      integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+      crossorigin="anonymous">
+    </script>
+    
+    <link rel="stylesheet" type="text/css" href="autoSuggestList.css">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css">   
+    <link rel="stylesheet" type="text/css" href="index.css"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>     
+    <script type="text/javascript" src="autoSuggestList.js"></script>    
+    <script type="text/javascript" src="index.js"></script>   
+  </head>
+  <body>
+    <div id="container">
+      <h1>AutoSuggestList</h1>
+      <h3>A jQuery plugin to attach an auto suggestion dropdown list to a text box</h3> 
+            
+      <div class="wrapper">
+        <ul>
+          <li>Every setting can be changed at any time without reinitialization.</li>            
+          <li>Your suggest list can hold objects with several properties.</li> 
+          <li>The object itself is accessible in event handlers and custom callbacks, not just certain properties.</li> 
+          <li>Dynamic and especially useful if you're changing its behavior options in response to other events</li>         
+          <li>Styles are very easy to change via options.</li>
+        </ul>
+          
+        <div id="output">&gt;&gt;<div id="wrap"><span id="out"></span></div>&lt;&lt;</div><br>
+        <input type="button" id="btnApply" value=" Apply ">
+        <input type="text" id="txt" autocomplete="off" spellcheck="false"/>
+        <input type="button" id="btnDestroy" value="Destroy">        
+      </div>
+      
+      <div id="doc">
+        <input type="button" value="Show Documentation" class="sectionBtn" data-title="Documentation">
+        <div class="section hidden">
+          <div class="block">
+            <h4>Setup</h4>
+            This plugin requires only jQuery 1.12.4 and jQuery UI 1.10 (or any newer versions).<br>
+            It can be initialized on a text box and options can be changed at any time the same way.
+            If your list array contains objects, any objects that don't have the property matching 
+            <code class="language-js">displayProperty</code> won't be shown in the search list. 
+            <br>
+            <input type="button" class="codeBtn" value="Show Example" data-title="Example"/>  
+            <div id="initializeCode" class="codeblock">
+<pre><code class="language-js">// object collections or string arrays
+$('#myTextBox').autoSuggestList({
+  list: { 
+    { id: 1, value: 'one',   otherProp: 'random' }, 
+    { id: 2, value: 'two',   otherProp: 'random' },
+    { id: 3, value: 'three', otherProp: 'random', tag: 'lucky' }
+  },
+  displayProperty: 'value'
+});
+
+$('#myTextBox').autoSuggestList({
+  list: ['one', 'two', 'three'];
+});</code></pre>            
+            </div>
+          </div>
+
+          <div class="block">
+            <h4>Setting Options</h4>
+            These are the options you can set.  All of them can be changed at any time.
+            <br>
+            <input type="button" class="codeBtn" value="Show Example" data-title="Example"/>      
+            <div class="codeblock">                
+<pre><code class='language-js'>$('#myTextBox').autoSuggestList({
+  list: [],                   // required - can hold strings or json objects
+  displayProperty: '',        // the object's property name to display in the list
+  
+  // defaults                 
+  minSearchChars: 0,          // minimum characters needed to trigger a search
+  searchDelay: 0,             // delay in ms before searches are triggered
+  matchCase: false,           // sets the search matching to be case sensitive
+  showFullListOnFocus: true,  // show the full list when the textbox is focused, regardless of its value
+  autoSelectFirst: false,     // auto highlight the first item in the list
+  autoSelectOnly: true,       // auto highlight the item when there is only one in the list
+  
+  // delay in ms of item highlight scroll when holding arrow keys (0 for the browser's default behavior)
+  // useful if you want to make the scroll speed with arrow keys very fast or very slow
+  arrowHoldScrollInterval: 0, 
+  
+  // **extra css properties to apply to the list box**
+  // applied to listbox div
+  divCss: {},                 // css object of properties   ex: { backgroundColor: 'gray', color: 'black' }
+  divClasses: '',             // space separated string of classes   ex: { 'my-class another-class' }
+  // applied to ul element
+  ulCss: {},                  // css object of properties 
+  ulClasses: '',              // space separated string of classes
+  // applied to li elements containing list items
+  liCss: {},                  // css object of properties 
+  liClasses: '',              // space separated string of classes 
+  // applied to the currently highlighted li element
+  highlightCss: {},           // css object of properties 
+  highlightClasses: ''        // space separated string of classes 
+});</code></pre>
+            </div> 
+          </div>
+
+          <div class="block">
+            <h4>Applying CSS</h4>
+            The properties of the CSS objects passed as options will be merged with any 
+            previous properties that were added.  You can clear them all by passing in an empty object 
+            <code class="language-js">{}</code>, or clear individual properties you have set by 
+            setting them to empty string.
+            The classes options are passed as strings which will be overwritten when changed.          
+            <br>
+            <input type="button" class="codeBtn" value="Show Example" data-title="Example"/>      
+            <div class="codeblock">                
+<pre><code class='language-js'>$('#myTextBox').autoSuggestList({
+  divCss: {
+    backgroundColor: 'green',
+    border: 3px solid black'
+  },
+  highlightClasses: 'class1 class2 class3'
+});
+// changing css options
+$('#myTextBox').autoSuggestList({
+  divCss: {
+    backgroundColor: ''
+  },
+  highlightClasses: 'class1'
+});
+// divCss will still have border property, but the 'green' backgroundColor will be reset to original value
+// highlightClasses will now only contain 'class1' 
+</code></pre>
+            </div> 
+          </div>
+
+          <div class="block">
+              <h4>Default CSS</h4>
+              These are the default classes applied to the widget, contained in the stylesheet
+              <code class="language-html">autoSuggestList.css</code>.  These classes will always
+              be applied.  You can change the styles by using the CSS related options in the
+              next section, or by editing the stylesheet itself. 
+              When the list opens and is too long to show in the current window, 
+              its height is limited to just above the the bottom of the window. 
+              The default behavior is for the list to be the same width as the textbox.  
+              If you want to make the width smaller, you have to change it by setting it in the 
+              <code class="language-js">divCss</code> option.  This is because the widget sets
+              <code class="language-html">min-width</code> as an attribute, which will override
+              any class settings relating to width.  The widget avoids setting the 
+              <code class="language-html">min-width</code> attribute if the 
+              <code class="language-js">divCss</code> option contains any width properties.
+              <br>
+              <input type="button" class="codeBtn" value="Show Example" data-title="Example"/>      
+              <div class="codeblock">
+<pre><code class='language-css'>.asl-div {
+  background-color: white; 
+  overflow-y: auto;
+  border: 1px solid black;
+  position: absolute;
+  z-index: 9999;
+}
+.asl-ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.asl-li {
+  padding: 2px 6px 2px 6px;
+  text-align: left;  
+  color: black;
+}
+.asl-highlight {
+  background-color: #3399ff;
+  cursor: default;
+}</code></pre>
+              </div> 
+          </div>
+
+          <div class="block">
+            <h4>Changing Functionality</h4>
+            You can change the default behavior by providing your own functions.  By default, 
+            the <code class="language-js">displayProperty</code> is used to match the search text, 
+            and to display in the textbox when items are selected. <br>
+            <code class="language-js">searchMatchCondition</code> allows you to decide
+            whether each item matches the search text.  It's easy to write a custom search condition
+            that handles changing options.<br>
+            <code class="language-js">textBoxFormatter</code> allows you to specify what value
+            should be put in the textbox when and item is selected.<br> 
+            Within the scope of these functions, <code class="language-js">this</code> refers to your textbox 
+            <br>
+            <input type="button" class="codeBtn" value="Show Example" data-title="Example"/>    
+            <div class="codeblock">                
+<pre><code class='language-js'>// provide your own search and textbox value functions
+$('#myTextBox').autoSuggestList({
+  list: [{ name: 'Walter Payton', nickName: 'sweetness' }, /*{and so on..}*/ ],
+  displayProperty: 'name',  
+  searchMatchCondition: mySearchCondition,  
+  textBoxFormatter: myFormatter
+});
+
+// executes for each item in your list when searches are performed
+// return true to include the item in the search results, false to exclude it 
+// this example searches both properties to determine a match
+// the current value of the matchCase and displayProperty options is provided 
+function mySearchCondition(item, searchText, matchCase, displayProperty) {  
+  var name = item[displayProperty]; // useful if you want to react to a changing displayProperty 
+  var nickName = item.nickName;     // or just access specific properties directly
+  if (!matchCase) {
+    name = name.toLowerCase();
+    nickName = nickName.toLowerCase();
+  }
+  return name.indexOf(searchText) > -1 || nickName.indexOf(searchText > -1);
+  // obj array default: return item[displayProperty].indexOf(searchText) > -1;
+  // str array default: return item.indexOf(searchText) > -1;
+}
+
+// executes when an item is selected
+// return the string value you would like to be put in the textbox when item is selected 
+// if you don't return a string value, the textbox will not be filled 
+// the current value of the displayProperty option is provided 
+// this example fills the textbox with name and nickname
+function myFormatter(item, displayProperty) {
+  return item.name + ' (' + item.nickName + ')';
+  // obj array default: return item[displayProperty];
+  // str array default: return item;
+}
+</code></pre>
+            </div> 
+          </div>
+
+          <div class="block">
+            <h4>Events</h4>
+            These are the events that you can listen to.  Event handlers can also be passed as options.  These events all contain their original events with the 
+            exception of when <code class="language-js">itemHighlighted</code> is triggered 
+            by the <code class="language-js">autoSelectFirst</code>  or 
+            <code class="language-js">autoSelectOnly</code>  options.  The original event in these
+            cases is a custom event named <code class="language-js">autohighlight</code><br>
+            - <code class="language-js">event</code>: the name of the event prepended with 
+            <code class="language-js">asl-</code>)
+            <br>
+            - <code class="language-js">item</code>: the list object or string depending on the contents 
+            of your array.  <br>
+            Within the scope of these functions, <code class="language-js">this</code> refers to your textbox <br> 
+            <input type="button" class="codeBtn" value="Show Example" data-title="Example"/>    
+            <div class="codeblock">                
+<pre><code class='language-js'>// handler provided as option
+$('#myTextBox').autoSuggestList({  
+  itemSelected: function(event, item) {}, 
+  itemHighlighted: function(event, item) {},
+  itemMouseenter: function(event, item) {}, // triggered before itemHighlighted
+  itemMouseleave: function(event, item) {}
+});
+// event handler binding
+$('#myTextBox').on('asl-itemselected', function(event, item) {});
+$('#myTextBox').on('asl-itemhighlighted', function(event, item) {});
+$('#myTextBox').on('asl-itemmouseenter', function(event, item) {});
+$('#myTextBox').on('asl-itemmouseleave', function(event, item) {});</code></pre>
+            </div> 
+          </div>
+
+          <div class="block">
+            <h4>Destroying</h4>
+            This widget can be disposed of properly by passing <code class="language-js">'destroy'</code>.
+            This example will check to see if the widget is present before attempting to destroy it.
+            <br>
+            <input type="button" class="codeBtn" value="Show Example" data-title="Example"/>      
+            <div class="codeblock">
+<pre><code class='language-js'>// data attribute name includes the namespace - sayel
+if ($('#myTextBox').data('sayelAutoSuggestList')) {
+  $('#myTextBox').autoSuggestList('destroy');
+}</code></pre>
+            </div> 
+          </div>
+        </div>
+
+
+        <input type="button" value="Hide Demo Controls" class="sectionBtn" data-title="Demo Controls">
+        <div class="section dash">
+          <p style="font-weight: bold;">
+            Enter settings and click Apply to test them!<br>
+            Remove the widget by clicking Destroy
+          </p>
+          <div id="controls">
+            <table>
+              <tr>
+                <td>
+                  <label><code class="language-js">list</code>: </label>
+                  <input type="radio" name="rbList" id="rbPeople" checked>people                
+                  <input type="radio" name="rbList" id="rbStates">states
+                </td>
+                
+                <td>
+                  <label><code class="language-js">autoSelectFirst</code>: </label>
+                  <input type="checkbox" id="chkAutoSelectFirst">                    
+                </td>
+                
+                <td>
+                  <code class="language-js">minSearchChars</code>: 
+                  <input type="text" id="txtMinSearch" value="0" style="width: 17px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label><code class="language-js">displayProperty</code>: </label>
+                  <input type="text" id="txtDP" value="name" style="width: 125px; margin-left: 4px;">                                   
+                </td>
+                
+                <td>
+                  <code class="language-js">showFullListOnFocus</code>: 
+                  <input type="checkbox" id="chkShowFullListOnFocus" checked>                   
+                </td>
+                
+                <td>
+                  <code class="language-js">searchDelay</code>: 
+                  <input type="text" id="txtSearchDelay" value="0" style="width: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label><code class="language-js">matchCase</code>: </label>
+                  <input type="checkbox" id="chkMatchCase">
+                </td>
+                
+                <td>
+                  <label><code class="language-js">autoSelectOnly</code>: </label>
+                  <input type="checkbox" id="chkAutoSelectOnly" checked>
+                </td>
+                
+                <td>
+                  <code class="language-js">arrowHoldScrollInterval</code>: 
+                  <input type="text" id="txtArrowHoldScrollInterval" value="0" style="width: 17px;">                  
+                </td>
+              </tr>
+            </table>
+
+
+            <p style="margin: 10px 0 0 0; font-weight: bold;">
+              Including your own functions: (leave empty for default behavior)
+            </p> 
+            <div id="w">
+              <div class="codeblock entry">
+<pre style="border-bottom: none; margin-bottom: 0; margin-top: 0px;"><code class='language-js'>$('#myTextBox').autoSuggestList({
+  searchMatchCondition: mySearchCondition,  
+  textBoxFormatter: myFormatter  
+});
+
+// remember searchText enters this function with same capitalization as entered in textbox
+function mySearchCondition(item, searchText, matchCase, displayProperty) {</code></pre>
+              </div> 
+ 
+              <textarea id="txtSearchCond" rows="6" spellcheck="false" style="margin-top: 0px; margin-bottom: -5px;"></textarea>
+<pre style="border-top: none; border-bottom: none; margin-top: 0px; margin-bottom: 0px;"><code class='language-js'>}</code></pre>
+
+              <div class="codeblock entry">
+<pre style="border-top: none; border-bottom: none; margin-top: 0px; margin-bottom: 0;"><code class='language-js'>function myFormatter(item, displayProperty) {</code></pre>
+              </div> 
+        
+              <textarea id="txtFormatter" rows="6" spellcheck="false" style="margin-top: 0px; margin-bottom: -5px;"></textarea>
+<pre style="border-top: none; margin-top: 0px; margin-bottom: 0;"><code class='language-js'>}</code></pre>
+            </div>
+            
+
+          </div>
+        </div>
+
+
+          <div class="block">
+            <h4>Lists</h4>          
+            These are the lists that can be used in this demo:
+            <br>
+            <input type="button" class="codeBtn" value="Show Demo Lists" data-title="Demo Lists"/>     
+            <div class="codeblock">            
+<pre><code class='language-js'>var people = [
+  {id: 1, name: 'Fry', phone: '555-555-1111', tag: true},
+  {id: 2, name: 'Leela', phone: '555-555-2222'}, 
+  {id: 3, name: 'Bender', phone: '110-001-0110', tag: "let's go already!"}, 
+  {id: 4, name: 'Amy', phone: '555-555-4444'},
+  {id: 5, name: 'Zoidberg', phone: '555-555-5555'}, 
+  {id: 6, name: 'Farnsworth', phone: '555-555-6666', tag: 'good news, everyone'}, 
+  {id: 7, name: 'Hermes', phone: '555-555-7777', tag: 'my manwich!'}, 
+  {id: 8, name: 'Scruffy', phone: '555-555-0000'}, 
+  {id: 9, name: 'Zapp', phone: '555-555-8888'}, 
+  {id: 10, name: 'Kif', phone: '555-555-9999'}, 
+  {id: 11, name: 'Morbo', phone: '555-555-1234'}, 
+  {id: 12, name: 'Calculon', phone: '555-555-5678'}, 
+  {id: 13, name: 'Elzar', phone: '555-555-3333'}
+];
+  
+var states = [
+  'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
+  'Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa',
+  'Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan',
+  'Minnesota','Mississippi','Missouri',,'Montana','Nebraska','Nevada',
+  'New Hampshire','New Jersey','New Mexico','New York','North Carolina',
+  'North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island',
+  'South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont',
+  'Virginia','Washington','West Virginia','Wisconsin','Wyoming'
+];</code></pre>
+            </div> 
+          </div>
+
+          <div class="block">
+            <h4>Initialization</h4>
+            This is the initialization for this demo.
+            <br>
+            <input type="button" class="codeBtn" value="Show Demo Settings" data-title="Demo Settings" />     
+            <div class="codeblock">                
+<pre><code class='language-js'>$('#myTextBox').autoSuggestList({
+  list: people,
+  displayProperty: 'name',
+  // demo defines showOutput() to listen to and display event info above textbox
+  itemSelected: showOutput, 
+  itemMouseenter: showOutput,  
+});</code></pre>
+            </div> 
+          </div>
+
+        </div>        
+      </div>  
+    </div>
+  </body>
+</html>

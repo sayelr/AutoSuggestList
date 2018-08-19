@@ -1,0 +1,21 @@
+.asl-div {
+  background-color: white; 
+  overflow-y: auto;
+  border: 1px solid black;
+  position: absolute;
+  z-index: 9999;
+}
+.asl-ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.asl-li {
+  padding: 2px 6px 2px 6px;
+  text-align: left;  
+  color: black;
+}
+.asl-highlight {
+  background-color: #3399ff;
+  cursor: default;
+}
